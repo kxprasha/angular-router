@@ -4,24 +4,25 @@
             <a class="navbar-brand">{{pageTitle}}</a>
             <ul class="nav navbar-nav">
                 <li>
-                    <a>Home</a>
+                    <a [routerLink]="['/home']">
+                    Home</a>
                 </li>
                 <li>
-                    <a>Product List</a>
+                    <a [routerLink]="['/products']">Product List</a>
                 </li>
                 <li>
-                    <a>Add Product</a>
+                    <a [routerLink]="['/products', 0, 'edit']">Add Product</a>
                 </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li *ngIf="authService.isLoggedIn()">
-                    <a>Welcome {{ authService.currentUser.userName }}</a>
+                    <a [routerLink]="['/Welcome']">Welcome {{ authService.currentUser.userName }}</a>
                 </li>
                 <li>
                     <a>Show Messages</a>
                 </li>
                 <li *ngIf="!authService.isLoggedIn()">
-                    <a>Log In</a>
+                    <a [routerLink]="['/login']">Log In</a>
                 </li>
                 <li *ngIf="authService.isLoggedIn()">
                     <a (click)="logOut()">Log Out</a>
@@ -30,6 +31,7 @@
         </div>
     </nav>
     <div class="container">
-        <app-home></app-home>
+        <!--<app-home></app-home>-->
+        <router-outlet></router-outlet>
     </div>
 </div>
