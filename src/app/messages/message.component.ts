@@ -5,6 +5,7 @@ import { MessageService } from '../messages/message.service';
 
 @Component({
     template: `
+    <div class="panel-body">
         <div class="row">
             <h4 class="col-md-10">Message Log</h4>
             <span class="col-md-2">
@@ -19,6 +20,7 @@ import { MessageService } from '../messages/message.service';
                 {{ message }}
             </div>
         </div>
+        </div>
     `,
     styles: [
         '.message-row { margin-bottom: 10px }'
@@ -30,6 +32,7 @@ export class MessageComponent {
                 private router: Router) { }
 
     close(): void {
-        // Close the popup.
+        // Close the popup
+        this.router.navigate([{outlets: { popup: null}}]);
     }
 }

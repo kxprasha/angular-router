@@ -17,13 +17,14 @@ var MessageComponent = (function () {
         this.router = router;
     }
     MessageComponent.prototype.close = function () {
-        // Close the popup.
+        // Close the popup
+        this.router.navigate([{ outlets: { popup: null } }]);
     };
     return MessageComponent;
 }());
 MessageComponent = __decorate([
     core_1.Component({
-        template: "\n        <div class=\"row\">\n            <h4 class=\"col-md-10\">Message Log</h4>\n            <span class=\"col-md-2\">\n                <a class=\"btn btn-default\"\n                    (click)=\"close()\">\n                    x\n                </a>\n            </span>\n        </div>\n        <div *ngFor=\"let message of messageService.messages; let i=index\">\n            <div *ngIf=\"i<10\" class=\"message-row\">\n                {{ message }}\n            </div>\n        </div>\n    ",
+        template: "\n    <div class=\"panel-body\">\n        <div class=\"row\">\n            <h4 class=\"col-md-10\">Message Log</h4>\n            <span class=\"col-md-2\">\n                <a class=\"btn btn-default\"\n                    (click)=\"close()\">\n                    x\n                </a>\n            </span>\n        </div>\n        <div *ngFor=\"let message of messageService.messages; let i=index\">\n            <div *ngIf=\"i<10\" class=\"message-row\">\n                {{ message }}\n            </div>\n        </div>\n        </div>\n    ",
         styles: [
             '.message-row { margin-bottom: 10px }'
         ]

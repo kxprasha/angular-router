@@ -8,15 +8,25 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var router_1 = require("@angular/router");
 var core_1 = require("@angular/core");
 var message_service_1 = require("../messages/message.service");
 var product_service_1 = require("./product.service");
 var ProductEditComponent = (function () {
-    function ProductEditComponent(productService, messageService) {
+    function ProductEditComponent(productService, messageService, route, router) {
         this.productService = productService;
         this.messageService = messageService;
+        this.route = route;
+        this.router = router;
         this.pageTitle = 'Product Edit';
     }
+    ProductEditComponent.prototype.ngOnInit = function () {
+        var productId;
+        this.route.params.subscribe(function (params) {
+            productId = +params['id'];
+        });
+        this.getProduct(productId);
+    };
     ProductEditComponent.prototype.getProduct = function (id) {
         var _this = this;
         this.productService.getProduct(id)
@@ -43,6 +53,7 @@ var ProductEditComponent = (function () {
                     .subscribe(function () { return _this.onSaveComplete(_this.product.productName + " was deleted"); }, function (error) { return _this.errorMessage = error; });
             }
         }
+        this.router.navigate(['products']);
     };
     ProductEditComponent.prototype.saveProduct = function () {
         var _this = this;
@@ -53,11 +64,19 @@ var ProductEditComponent = (function () {
         else {
             this.errorMessage = 'Please correct the validation errors.';
         }
+        this.router.navigate(['products']);
+    };
+    ProductEditComponent.prototype.cancel = function () {
+        this.router.navigate(['products']);
+    };
+    ProductEditComponent.prototype.cancelAnimationFrame = function () {
+        this.router.navigate(['products']);
     };
     ProductEditComponent.prototype.onSaveComplete = function (message) {
         if (message) {
             this.messageService.addMessage(message);
         }
+        // this.router.navigate(['products']);
         // Navigate back to the product list
     };
     return ProductEditComponent;
@@ -68,7 +87,9 @@ ProductEditComponent = __decorate([
         styleUrls: ['./app/products/product-edit.component.css']
     }),
     __metadata("design:paramtypes", [product_service_1.ProductService,
-        message_service_1.MessageService])
+        message_service_1.MessageService,
+        router_1.ActivatedRoute,
+        router_1.Router])
 ], ProductEditComponent);
 exports.ProductEditComponent = ProductEditComponent;
 //# sourceMappingURL=product-edit.component.js.map
